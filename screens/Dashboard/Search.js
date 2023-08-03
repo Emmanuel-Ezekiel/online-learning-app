@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import {
     View,
@@ -10,6 +11,6 @@ const Search = () => {
             <Text>Search</Text>
         </View>
     )
-}
+};
 
 export default Search;
