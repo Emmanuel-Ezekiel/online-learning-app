@@ -1,3 +1,6 @@
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable eqeqeq */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
@@ -9,10 +12,41 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {COLORS, FONTS, SIZES, icons, images, dummyData} from '../../constants';
-import {IconButton} from '../../components';
+import {
+  IconButton,
+  TextButton,
+  IconLabel,
+  LineDivider,
+  CategoryCard,
+} from '../../components';
+
+const Section = ({containerStyle, title, onPress, children}) => {
+  return (
+    <View
+      style={{
+        ...containerStyle,
+      }}>
+      <View style={{flexDirection: 'row', paddingHorizontal: SIZES.padding}}>
+        <Text style={{flex: 1, ...FONTS.h2}}>{title}</Text>
+        <TextButton
+          contentContainerStyle={{
+            width: 80,
+            borderRadius: 30,
+            backgroundColor: COLORS.primary,
+          }}
+          label="See All"
+          onPress={onPress}
+        />
+      </View>
+      {children}
+    </View>
+  );
+};
 
 const Home = () => {
   const renderHeader = () => {
@@ -35,7 +69,6 @@ const Home = () => {
       </View>
     );
   };
-
   const renderStartLearning = () => {
     return (
       <ImageBackground
@@ -65,7 +98,113 @@ const Home = () => {
           source={images.start_learning}
           style={{width: '100%', height: 110, marginTop: SIZES.padding}}
         />
+
+        <TextButton
+          label="Start Learning"
+          contentContainerStyle={{
+            height: 40,
+            paddingHorizontal: SIZES.padding,
+            borderRadius: 20,
+            backgroundColor: COLORS.white,
+          }}
+          labelStyle={{
+            color: COLORS.black,
+          }}
+        />
       </ImageBackground>
+    );
+  };
+  const renderCourses = () => {
+    return (
+      <FlatList
+        horizontal
+        data={dummyData.courses_list_1}
+        listKey="Courses"
+        keyExtractor={item => `Courses-${item.id}`}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          marginTop: SIZES.padding,
+        }}
+        renderItem={({item, index}) => (
+          <TouchableOpacity
+            style={{
+              width: 270,
+              marginLeft: index == 0 ? SIZES.padding : SIZES.radius,
+              marginRight:
+                index == dummyData.courses_list_1.length - 1
+                  ? SIZES.padding
+                  : 0,
+            }}>
+            <Image
+              source={item.thumbnail}
+              resizeMode="cover"
+              style={{
+                width: '100%',
+                height: 150,
+                marginBottom: SIZES.radius,
+                borderRadius: SIZES.radius,
+              }}
+            />
+            <View style={{flexDirection: 'row'}}>
+              <View style={styles.play}>
+                <Image
+                  source={icons.play}
+                  resizeMode="contain"
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
+                />
+              </View>
+
+              <View style={{flexShrink: 1, paddingHorizontal: SIZES.radius}}>
+                <Text style={{flex: 1, ...FONTS.h3, fontSize: 18}}>
+                  {item.title}
+                </Text>
+
+                <IconLabel
+                  icon={icons.time}
+                  label={item.duration}
+                  containerStyle={{
+                    marginTop: SIZES.base,
+                  }}
+                />
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+    );
+  };
+
+  const renderCategories = () => {
+    return (
+      <>
+        <Section title="Categories">
+          <FlatList
+            horizontal
+            data={dummyData.categories}
+            listKey="Categories"
+            keyExtractor={item => `Cagtegories-${item.id}`}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              marginTop: SIZES.padding,
+            }}
+            renderItem={({item, index}) => (
+              <CategoryCard
+                category={item}
+                containerStyle={{
+                  marginLeft: index == 0 ? SIZES.padding : SIZES.base,
+                  marginRight:
+                    index == dummyData.categories.length - 1
+                      ? SIZES.padding
+                      : 0,
+                }}
+              />
+            )}
+          />
+        </Section>
+      </>
     );
   };
 
@@ -80,6 +219,20 @@ const Home = () => {
         showsVerticalScrollIndicator={false}>
         {/* startLearning */}
         {renderStartLearning()}
+
+        {/* Courses */}
+        <GestureHandlerRootView
+          style={{
+            flex: 1,
+          }}>
+          {renderCourses()}
+        </GestureHandlerRootView>
+
+        {/* lineDivider */}
+        <LineDivider lineStyle={{marginVertical: SIZES.padding}} />
+
+        {/* categories */}
+        <GestureHandlerRootView>{renderCategories()}</GestureHandlerRootView>
       </ScrollView>
     </View>
   );
@@ -99,6 +252,14 @@ const styles = StyleSheet.create({
   },
   greetings: {
     flex: 1,
+  },
+  play: {
+    width: 45,
+    height: 45,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+    backgroundColor: COLORS.primary,
   },
 });
 
