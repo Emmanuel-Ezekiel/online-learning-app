@@ -5,5 +5,6 @@ import TextButton from './TextButton';
 import IconLabel from './iconLabel';
 import LineDivider from './LineDivider';
 import CategoryCard from './CategoryCard';
+import HorizantalCourseCard from './HorizontalCourseCard';
 
-export {IconButton, TextButton, IconLabel, LineDivider, CategoryCard};
+export {IconButton, TextButton, IconLabel, LineDivider, CategoryCard, HorizantalCourseCard};

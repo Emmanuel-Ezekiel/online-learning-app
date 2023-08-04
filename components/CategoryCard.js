@@ -16,8 +16,11 @@ const CategoryCard = ({category, containerStyle}) => {
           paddingHorizontal: SIZES.radius,
           justifyContent: 'flex-end',
           ...containerStyle,
-        }}
-      />
+        }}>
+        <Text style={{color: COLORS.white, ...FONTS.h2}}>
+          {category?.title}
+        </Text>
+      </ImageBackground>
     </TouchableOpacity>
   );
 };

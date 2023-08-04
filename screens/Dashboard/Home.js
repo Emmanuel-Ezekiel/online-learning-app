@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable eqeqeq */
@@ -23,6 +24,7 @@ import {
   IconLabel,
   LineDivider,
   CategoryCard,
+  HorizantalCourseCard,
 } from '../../components';
 
 const Section = ({containerStyle, title, onPress, children}) => {
@@ -176,7 +178,6 @@ const Home = () => {
       />
     );
   };
-
   const renderCategories = () => {
     return (
       <>
@@ -208,6 +209,48 @@ const Home = () => {
     );
   };
 
+  const renderPopularCourses = () => {
+    return (
+      <Section
+        title="Popular Courses"
+        containerStyle={{
+          marginTop: 30,
+        }}>
+        <FlatList
+          data={dummyData.courses_list_2}
+          listKey="PopularCourses"
+          scrollEnabled={false}
+          keyExtractor={item => `PopularCourses-${item.id}`}
+          contentContainerStyle={{
+            marginTop: SIZES.padding,
+            paddingHorizontal: SIZES.padding,
+          }}
+          renderItem={({item, index, separators}) => (
+            <HorizantalCourseCard
+              course={item}
+              separators={separators}
+              containerStyle={{
+                marginVertical: SIZES.padding,
+                marginTop: index == 0 ? SIZES.radius : SIZES.padding,
+              }}
+            />
+          )}
+          ItemSeparatorComponent={() => {
+            return (
+              <View
+                style={{
+                  height: 2,
+                  width: '100%',
+                  backgroundColor: COLORS.gray20,
+                }}
+              />
+            );
+          }}
+        />
+      </Section>
+    );
+  };
+
   return (
     <View style={styles.homeContainer}>
       {/* Header */}
@@ -233,6 +276,11 @@ const Home = () => {
 
         {/* categories */}
         <GestureHandlerRootView>{renderCategories()}</GestureHandlerRootView>
+
+        {/* popular courses */}
+        <GestureHandlerRootView>
+          {renderPopularCourses()}
+        </GestureHandlerRootView>
       </ScrollView>
     </View>
   );
