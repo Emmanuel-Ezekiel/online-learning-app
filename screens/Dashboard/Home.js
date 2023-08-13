@@ -15,8 +15,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { FlatList,  GestureHandlerRootView  } from 'react-native-gesture-handler';
 import { COLORS, FONTS, SIZES, icons, images, dummyData } from '../../constants';
 import {
   IconButton,
