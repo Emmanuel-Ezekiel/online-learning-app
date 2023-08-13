@@ -15,9 +15,9 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {COLORS, FONTS, SIZES, icons, images, dummyData} from '../../constants';
+import { FlatList } from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { COLORS, FONTS, SIZES, icons, images, dummyData } from '../../constants';
 import {
   IconButton,
   TextButton,
@@ -158,7 +158,6 @@ const Home = () => {
                   }}
                 />
               </View>
-
               <View style={{flexShrink: 1, paddingHorizontal: SIZES.radius}}>
                 <Text style={{flex: 1, ...FONTS.h3, fontSize: 18}}>
                   {item.title}
